@@ -1,0 +1,83 @@
+\documentclass[11pt,fleqn,fancyheadings,a4paper]{article}
+%\usepackage{tikz-qtree}
+\usepackage{bookmark,hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat�s bookmarks
+    pdftoolbar=true,        % show Acrobat�s toolbar?
+    pdfmenubar=true,        % show Acrobat�s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links
+    citecolor=black,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=black           % color of external links
+}
+
+%\usepackage{moredefs}
+\usepackage{fancyheadings,setspace,fancybox}
+%\usepackage[Sonny]{fncychap}
+\usepackage[twoside,bindingoffset=0.0cm,includeheadfoot,textwidth=18cm,textheight=26.5cm,top=0.5cm]{geometry}
+%\usepackage[twoside,bindingoffset=1.6cm,includeheadfoot,textwidth=18cm,textheight=26.5cm,top=0.5cm]{geometry}
+%\usepackage[bindingoffset=2.1cm,includeheadfoot,textwidth=17cm,textheight=26.9cm]{geometry}
+\usepackage{amssymb,array,delarray,verbatim,alltt,epsfig,float,amsthm}
+\usepackage{graphicx,algorithmicx,algorithm,algpseudocode,xspace,xcolor}
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts,wrapfig,makeidx}
+\usepackage{natbib,amsfonts,fancyvrb,cancel}
+\usepackage{epsf,epsfig,subfigure,dsfont}
+\usepackage{tikz}
+\usepackage{amssymb,amsmath}
+\usetikzlibrary{arrows,shapes,backgrounds,through,shadows,snakes,patterns,mindmap}
+\usetikzlibrary{calc}
+\graphicspath{{./}{./figures/}{./../figures/}{./../matlab/}{./../matlab/figures/}{./../codeOO/misc/}}
+%\newcommand{\theHalgorithm}{\arabic{algorithm}}%
+
+\renewcommand{\theHalgorithm}{\arabic{algorithm}}
+\title{Deep Models for Compression}
+\author{Raza Habib, Jamie Townsend and David Barber\\Department of Computer Science\\University College London}
+\date{\today}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{}}
+\cfoot{}
+
+
+
+\input{inputs.tex}
+\setlength{\parindent}{0cm}
+
+\begin{document}
+\maketitle
+
+\section{Deep Models and Variational Inference}
+
+Training expressive unsupervised or semi-supervised models that are able to learn useful representations of the world is one of the core goals of AI. Here we review some of the literature on VAE modles.
+
+\section{Interesting Literature}
+
+\subsection{Neural Discrete Representation Learning}
+
+They build VAEs with discrete latent variables that are have parameterised distributions. They use something called vector quantisation to encourage the model to use the latents more.
+
+
+\section{ToDo's}
+\begin{itemize}
+	\item
+\end{itemize}
+
+
+\bibliographystyle{plain}
+\bibliography{undirected}
+
+
+
+\end{document} 
