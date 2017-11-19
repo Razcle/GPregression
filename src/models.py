@@ -1,7 +1,10 @@
 """ Gaussian Process Regression Models """
 import numpy as np
+import tensorflow as tf
 
-# TODO vectorise gram contsruction
+from src.utils import lazy_property
+
+# TODO vectorise gram contsruction. Find out if numpy has a matlab like bsxfun
 
 
 class GP:
@@ -16,6 +19,7 @@ class GP:
         """ Calculates the posterior mean and covariance given some function
         evaluations y """
         self.KXX = self._build_gram_matrix(X, self.prior_cov)
+        self.KXX = self.KXX + self.sigma*np.eye(X.shape[0])
         self.KXx = self._build_KXx(X, self.prior_cov)
         self.poster_mean = self._get_posterior_mean(self.KXx, self.KXX, y)
         self.posterior_cov = self._get_posterior_cov(self.KXx, self.KXX, y)
@@ -29,13 +33,21 @@ class GP:
     def sample_prior(self, X):
         """ Draw a sample of the GP prior function evaluated at X"""
         gram = self._build_gram_matrix(X, self.prior_cov)
+        gram = gram + self.sigma*np.eye(X.shape[0])
         return self._sample(X, gram)
 
     def sample_posterior(self, X):
         """ Draw a sample from the GP posterior"""
         mean = self.poster_mean(X)
         gram = self.posterior_cov(X)
+        gram = gram + self.sigma*np.eye(X.shape[0])
         return self._sample(X, gram, mean)
+
+    def model_evidence(self, X, Y):
+        cov = self.posterior_cov(X)
+        normaliser = np.linalg.det(2*np.pi*cov)**(-0.5)
+        mahalon = -0.5 * np.dot(Y, np.linalg.lstsq(self.KXX, Y))
+        return normaliser * np.exp(mahalon)
 
     def _build_gram_matrix(self, X, kernel):
         N = X.shape[0]
@@ -43,7 +55,6 @@ class GP:
         for i in range(N):
             for j in range(N):
                 gram[i, j] = kernel(X[i], X[j])
-        gram = gram + self.sigma*np.eye(X.shape[0])
         return gram
 
     def _build_KXx(self, X, kernel):
@@ -71,8 +82,8 @@ class GP:
         return post_mean
 
     def _get_posterior_cov(self, KXx, KXX, y):
-        def post_cov(self, x):
-            kxx = self.prior_cov(x, x)
+        def post_cov(x):
+            kxx = self._build_gram_matrix(x, self.prior_cov)
             k = KXx(x)
             v = np.linalg.lstsq(KXX, k)[0]
             return kxx - np.dot(k.T, v)
