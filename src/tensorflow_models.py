@@ -1,6 +1,8 @@
 """ Gaussian Process Regression Models """
 import numpy as np
+import tensorflow as tf
 
+from src.utils import lazy_property
 
 # TODO vectorise gram contsruction. Find out if numpy has a matlab like bsxfun
 
